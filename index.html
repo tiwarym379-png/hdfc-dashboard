@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html theme="dark" editor="Default Dark" style="overflow-y: auto;"><head><meta charset="UTF-8">
+<script>
+  // Avoid arrow function syntax to stay ES5 compatible for the sake of googlebot.
+  window.addEventListener("message", function (message) {
+    if (message.source != window.parent) {
+      return;
+    }
+    if (message.data.sandboxed_iframe_evaluation) {
+      // Message is available in scope so evaluated script can get params from
+      // it.
+      window.currentMessage = message;
+      eval.call(null, message.data.sandboxed_iframe_evaluation);
+      delete window.currentMessage;
+    }
+  });
+</script>
+<style>html{--colab-primary-color:#0b57d0;--colab-primary-text-color:#1f1f1f;--colab-primary-text-color-rgb:31,31,31;--colab-secondary-text-color:#444746;--colab-primary-surface-color:#fff;--colab-secondary-surface-color:#f2f2f2;--colab-border-color:#c4c7c5;--colab-bold-border-color:#747775;--ansi-black:#000;--ansi-red:#8b0000;--ansi-green:#006400;--ansi-yellow:#cdcd00;--ansi-blue:#00e;--ansi-magenta:#cd00cd;--ansi-cyan:#4682b4;--ansi-gray:#e5e5e5;--ansi-bright-black:#7f7f7f;--ansi-bright-red:red;--ansi-bright-green:#00d000;--ansi-bright-yellow:#ff0;--ansi-bright-blue:#5c5cff;--ansi-bright-magenta:#f0f;--ansi-bright-cyan:#0ff;--ansi-bright-gray:#fff;--colab-anchor-color:var(--colab-primary-color);--colab-highlighted-surface-color:rgba(var(--colab-primary-text-color-rgb),0.08);--colab-icon-color:var(--colab-secondary-text-color);--colab-scrollbar-color:rgba(var(--colab-primary-text-color-rgb),0.24);--colab-scrollbar-hover-color:rgba(var(--colab-primary-text-color-rgb),0.48);--colab-scrollbar-active-color:rgba(var(--colab-primary-text-color-rgb),0.48);--colab-code-font-family:monospace;--colab-chrome-font-family:"Google Sans Text","Google Sans","Noto",sans-serif;--colab-chrome-font-size:14px}html[theme=dark]{--colab-primary-color:#a8c7fa;--colab-primary-text-color:#e3e3e3;--colab-primary-text-color-rgb:227,227,227;--colab-secondary-text-color:#c4c7c5;--colab-primary-surface-color:#282a2c;--colab-secondary-surface-color:#474747;--colab-border-color:#444746;--colab-bold-border-color:#8e918f;--ansi-black:#3f3f3f;--ansi-red:#ff7a88;--ansi-green:#57bb8a;--ansi-yellow:#ff6;--ansi-blue:#82b1ff;--ansi-magenta:#cd00cd;--ansi-cyan:#99bbd7;--ansi-gray:#e5e5e5;--ansi-bright-green:#0f0}html[theme=dark].embedded{--colab-secondary-surface-color:#202124;--colab-highlighted-surface-color:#202124;--colab-border-color:#3c4043}html[editor=Synthwave84]{--colab-anchor-color:#f97e72;--colab-primary-surface-color:#262335;--colab-secondary-surface-color:#49549539;--colab-highlighted-surface-color:#37294d99;--colab-border-color:#7059ab66;--ansi-red:#fe4450;--ansi-green:#72f1b8;--ansi-yellow:#f97e72;--ansi-blue:#03edf9;--ansi-magenta:#ff7edb;--ansi-cyan:#03edf9;--ansi-bright-red:#fe4450;--ansi-bright-green:#72f1b8;--ansi-bright-yellow:#fede5d;--ansi-bright-blue:#03edf9;--ansi-bright-magenta:#ff7edb;--ansi-bright-cyan:#03edf9}html{overflow-y:hidden}body{background:var(--colab-primary-surface-color);color:var(--colab-primary-text-color);font-family:var(--colab-chrome-font-family);font-size:var(--colab-chrome-font-size);line-height:1.24;font-weight:400;padding:7px 0 10px 5px;margin:0}h1,h2,h3,h4,h5,h6{color:var(--colab-primary-text-color);font-family:var(--colab-chrome-font-family);font-weight:700;margin-bottom:4px}p,ul{margin-bottom:6px;margin-top:6px}pre{margin-bottom:0;margin-top:0}a{color:var(--colab-anchor-color)}div.output_text,div.output_text pre,div.stream{display:inline}.execute_result>pre{display:block}.output_latex,.output_markdown{max-width:1016px}.output_markdown table,table.dataframe{border-collapse:collapse;border-spacing:0;border:none;table-layout:fixed}.output_markdown table thead,table.dataframe thead{border-bottom:1px solid var(--colab-border-color);font-family:var(--colab-code-font-family);text-align:right}.output_markdown table td,.output_markdown table th,.output_markdown table tr,table.dataframe td,table.dataframe th,table.dataframe tr{border:none;padding:.5em;white-space:normal}.output_markdown table th,table.dataframe th{font-weight:700}.output_markdown table th.col_heading,table.dataframe th.col_heading{text-align:right}.output_markdown table tbody tr:nth-child(odd),table.dataframe tbody tr:nth-child(odd){background:var(--colab-secondary-surface-color)}.output_markdown table tbody tr:hover,.output_markdown table tbody tr:nth-child(odd):hover,table.dataframe tbody tr:hover,table.dataframe tbody tr:nth-child(odd):hover{background-color:var(--colab-highlighted-surface-color)}.output_markdown table td,table.dataframe td{text-align:right}table.dataTable input.text_filter{width:95%}.output_markdown table th,table.dataTable th{text-align:left}.output_image>img{background-color:#fff;max-width:100%;vertical-align:bottom}.output_image>img.unconstrained{max-width:unset}.ansibold{font-weight:700}.ansiblack{color:#000}.ansired{color:darkred}.ansigreen{color:#006400}.ansiyellow{color:brown}.ansiblue{color:#00008b}.ansipurple{color:#9400d3}.ansicyan{color:#4682b4}.ansigray{color:gray}.ansibgblack{background-color:#000}.ansibgred{background-color:red}.ansibggreen{background-color:green}.ansibgyellow{background-color:#ff0}.ansibgblue{background-color:blue}.ansibgpurple{background-color:#f0f}.ansibgcyan{background-color:cyan}.ansibggray{background-color:gray}.output-error span{font-weight:400!important}.output-error pre{white-space:pre-wrap}.display_data .output_text pre,.execute_result .output_text pre{white-space:pre-wrap}input.raw_input{font-family:var(--colab-code-font-family);width:90%}input{background:var(--colab-primary-surface-color);border:1px solid var(--colab-bold-border-color);color:var(--colab-primary-text-color)}#output-area{display:flow-root}#output-area button.colab{background-color:var(--colab-secondary-surface-color);border:0;box-shadow:0 1px 3px 1px rgba(0,0,0,.15),0 1px 2px 0 rgba(0,0,0,.3);color:var(--colab-primary-text-color);font-family:var(--colab-chrome-font-family);font-size:11px;margin:0 4px 10px;padding:6px;text-transform:uppercase;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}#output-area button.colab:hover{background-color:var(--colab-highlighted-surface-color);cursor:pointer}#output-area .output-error button.error-details{background-color:#42a5f5;color:#fff}#output-area .output-error button.error-details:hover{background-color:#2196f3}#output-area .stdin-widget{-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;display:inline;font-family:var(--colab-code-font-family);margin-right:10px;margin-top:10px;min-width:250px;padding:1px}#output-area .stdin-widget-hidden{visibility:hidden}.error .collapsed .extraneous{display:none}.error .error-expander{-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;cursor:pointer;display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}.error .error-expander hr{border:0;border-top:1px solid var(--colab-bold-border-color);-webkit-box-flex:1;-webkit-flex-grow:1;-moz-box-flex:1;-ms-flex-positive:1;flex-grow:1;height:1px;margin:0 10px;padding:0}.error .error-expander hr:first-child{max-width:240px}.error .error-expander svg{fill:var(--colab-icon-color);height:24px;stroke:var(--colab-icon-color);width:24px}.lm-Widget.lm-mod-hidden{display:none!important}audio:focus{outline:none}::-webkit-scrollbar{height:12px;width:12px}::-webkit-scrollbar-button{height:0;width:0}::-webkit-scrollbar-corner{background:transparent}::-webkit-scrollbar-thumb{background-clip:content-box;background-color:var(--colab-scrollbar-color);border:2px solid transparent;border-radius:8px;min-height:28px;min-width:28px}::-webkit-scrollbar-thumb:hover{background-color:var(--colab-scrollbar-hover-color)}::-webkit-scrollbar-thumb:active{background-color:var(--colab-scrollbar-active-color)}@supports not (selector(::-webkit-scrollbar)){*{scrollbar-color:var(--colab-scrollbar-color) transparent}}.string-repr{display:inline}.string-repr .quote{opacity:75%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.string-repr pre{display:inline;white-space:pre-wrap;word-break:break-all}.string-repr button{color:var(--colab-primary-text-color);cursor:pointer;border:1px solid #767676;border-radius:2px;outline:none}.string-repr button.copy{background:transparent;border:none;margin-left:4px;opacity:0;padding:0;stroke:var(--colab-primary-text-color);-webkit-transition:opacity .2s;transition:opacity .2s}.string-repr button.copy svg{width:14px}.string-repr.hover button.copy,.string-repr:hover button.copy{opacity:1}.string-repr button.more{background-color:transparent;border-color:transparent;display:none;padding:0;-webkit-transition:background-color .2s,border-color .2s;transition:background-color .2s,border-color .2s}.string-repr.large button.more{display:inline}.string-repr.large.truncated button .collapse{display:none}.string-repr.large button .expand{display:none}.string-repr.large.truncated button .expand{display:inline}.string-repr.hover button.more,.string-repr:hover button.more{border-color:#767676}
+/*# sourceMappingURL=outputframe.css.map */
+//@ sourceURL=https://ssl.gstatic.com/colaboratory-static/common/59eb03e8f5d14c95e975744699cdd239/outputframe.css</style><base href="https://localhost:8080/"></head><body><div id="output-area"><span id="output-header"> </span><div id="output-body"><div class="display_data output-id-1"><div class="output_subarea output_html rendered_html">
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HDFC Bank - Branch Manager Dashboard</title>
+<style>
+  :root {
+    --bg-main: #0B1120;
+    --bg-card: #151F32;
+    --bg-darker: #0F172A;
+    --border-col: #2E3F5C;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --hdfc-blue: #2563EB;
+    --hdfc-navy: #004C8F;
+    --hdfc-red: #ED232A;
+    --green: #10B981;
+    --amber: #F59E0B;
+    --red: #EF4444;
+    --formula-bg: #1E2618;
+    --formula-text: #FDE047;
+  }
+
+  * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg-main);
+    color: var(--text-main);
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroll-viewport {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg-main);
+    position: relative;
+    padding-bottom: 40px;
+  }
+
+  .dashboard-canvas {
+    width: 100%;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .header-bar {
+    background: linear-gradient(135deg, #003366 0%, #0F172A 100%);
+    border: 1px solid var(--border-col);
+    border-bottom: 4px solid var(--hdfc-red);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  }
+
+  .brand-left { display: flex; align-items: center; gap: 12px; }
+  .brand-text h1 { margin: 0; font-size: 18px; font-weight: 700; color: #FFFFFF; }
+  .brand-text p { margin: 3px 0 0 0; font-size: 12px; color: #FCA5A5; font-style: italic; }
+  .header-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #93C5FD;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: -6px;
+  }
+
+  /* Responsive Grid Layouts */
+  .health-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .charts-grid { display: grid; grid-template-columns: 1.1fr 1.1fr 0.9fr; gap: 14px; }
+  .tools-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; }
+
+  .health-card, .chart-card, .tool-card, .pivot-builder-card, .table-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-col);
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  .health-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .health-title { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+  .health-value { font-size: 20px; font-weight: 800; color: #FFFFFF; }
+  .progress-track { width: 100%; height: 10px; background: var(--bg-darker); border-radius: 99px; overflow: hidden; margin-bottom: 6px; border: 1px solid #334155; }
+  .progress-fill { height: 100%; border-radius: 99px; transition: width 0.35s ease; }
+  .health-sub { font-size: 11px; color: var(--text-muted); }
+
+  .card-heading { font-size: 13px; font-weight: 700; color: #E2E8F0; margin-bottom: 10px; }
+
+  .bar-chart-box {
+    height: 220px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 20px 8px 6px 8px;
+    background: #0F172A;
+    border-radius: 8px;
+    border-bottom: 2px solid #334155;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .bar-group { flex: 1; min-width: 55px; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+  .bar-pair { display: flex; align-items: flex-end; gap: 4px; height: 155px; width: 100%; justify-content: center; }
+  .bar-col { width: 20px; border-radius: 4px 4px 0 0; transition: height 0.35s ease; min-height: 4px; }
+  .bar-num { font-size: 9.5px; color: #E2E8F0; text-align: center; margin-bottom: 3px; font-weight: 700; white-space: nowrap; }
+  .bar-label { margin-top: 8px; font-size: 11px; color: #CBD5E1; font-weight: 600; }
+  .legend-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 10px; font-size: 11px; color: var(--text-muted); }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+
+  .donut-box {
+    min-height: 220px;
+    background: #0F172A;
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    gap: 12px;
+  }
+  .donut-list { display: flex; flex-direction: column; gap: 8px; font-size: 11px; flex: 1; min-width: 150px; }
+  .donut-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: #1E293B; border-radius: 5px; }
+
+  .slicer-wrap { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .slicer-box { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; background: var(--bg-darker); padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border-col); }
+  .slicer-label { font-size: 11px; font-weight: 700; color: #93C5FD; margin-right: 3px; }
+  .slicer-btn {
+    padding: 5px 10px; font-size: 11px; font-weight: 600; color: var(--text-muted);
+    background: #1E293B; border: 1px solid #334155; border-radius: 5px; cursor: pointer;
+  }
+  .slicer-btn.active { background: var(--hdfc-blue); color: white; border-color: #60A5FA; }
+
+  .search-filter-wrap { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .dark-input, .dark-select {
+    background: var(--bg-darker); color: var(--text-main); border: 1px solid #3B4D6B;
+    padding: 7px 10px; border-radius: 6px; font-size: 12px; outline: none;
+  }
+
+  .btn { padding: 7px 12px; border-radius: 6px; border: none; font-size: 11px; font-weight: 600; cursor: pointer; }
+  .btn-blue { background: var(--hdfc-blue); color: white; }
+  .btn-red { background: var(--hdfc-red); color: white; }
+  .btn-green { background: var(--green); color: #052E16; font-weight: 700; }
+  .btn-amber { background: var(--amber); color: #0F172A; font-weight: 700; }
+  .btn-delete { background: #7F1D1D; color: #FCA5A5; padding: 4px 8px; font-size: 10px; }
+  .btn-delete:hover { background: #991B1B; color: white; }
+
+  .pivot-setup-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 1.1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+    background: var(--bg-darker);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+  }
+  .pivot-field-group label { display: block; font-size: 10px; font-weight: 700; color: #93C5FD; text-transform: uppercase; margin-bottom: 4px; }
+  
+  /* Scrollable Pivot and Data Tables (Vertical + Horizontal) */
+  .pivot-table-scroll {
+    width: 100%;
+    max-height: 220px;
+    overflow-x: auto;
+    overflow-y: auto;
+    border: 1px solid var(--border-col);
+    border-radius: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .excel-pivot-table { width: 100%; min-width: 500px; border-collapse: collapse; font-size: 12px; }
+  .excel-pivot-table th { background: #1E3A8A; color: #F8FAFC; padding: 8px 10px; text-align: left; position: sticky; top: 0; z-index: 2; border: 1px solid #2E3F5C; white-space: nowrap; }
+  .excel-pivot-table td { padding: 7px 10px; border: 1px solid #1E293B; background: #0F172A; font-weight: 600; white-space: nowrap; }
+  .excel-pivot-table tr.total-row td { background: #1E293B; font-weight: 800; color: #FACC15; border-top: 2px solid #3B82F6; }
+
+  .formula-banner {
+    background: var(--bg-darker);
+    border: 1px solid #334155;
+    border-left: 4px solid #FACC15;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 11.5px;
+    color: #E2E8F0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .table-scroll {
+    width: 100%;
+    max-height: 350px;
+    overflow-x: auto;
+    overflow-y: auto;
+    border: 1px solid var(--border-col);
+    border-radius: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+  table { width: 100%; min-width: 1150px; border-collapse: collapse; font-size: 11.5px; }
+  th { background: var(--bg-darker); color: #93C5FD; padding: 10px 8px; text-align: left; position: sticky; top: 0; z-index: 2; border-bottom: 2px solid var(--border-col); white-space: nowrap; }
+  th.formula-th { color: var(--formula-text); background: #1A2012; }
+  td { padding: 6px 8px; border-bottom: 1px solid #1E293B; white-space: nowrap; }
+  td.formula-cell { background: var(--formula-bg); color: var(--formula-text); font-weight: 700; }
+
+  .grid-cell {
+    width: 100%;
+    padding: 5px 6px;
+    background: #0B1120;
+    color: #FFFFFF;
+    border: 1px solid #334155;
+    border-radius: 4px;
+    font-size: 11.5px;
+    outline: none;
+  }
+  .grid-cell.num-cell { text-align: right; }
+  .grid-cell:focus {
+    background: #1E3A8A !important;
+    border: 2px solid #FACC15 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 8px rgba(250, 204, 21, 0.75);
+  }
+
+  /* Tablet Screen Compatibility */
+  @media (max-width: 1024px) {
+    .health-grid { grid-template-columns: repeat(2, 1fr); }
+    .charts-grid { grid-template-columns: 1fr 1fr; }
+    .charts-grid .chart-card:last-child { grid-column: span 2; }
+    .tools-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Mobile Phone Screen Compatibility */
+  @media (max-width: 680px) {
+    .dashboard-canvas { padding: 10px 12px; gap: 14px; }
+    .health-grid { grid-template-columns: 1fr; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .charts-grid .chart-card:last-child { grid-column: span 1; }
+    .pivot-setup-grid { grid-template-columns: 1fr 1fr; }
+    .brand-text h1 { font-size: 15px; }
+    .header-bar { padding: 12px; }
+  }
+</style>
+
+
+
+<div class="scroll-viewport" id="viewport">
+  <div class="dashboard-canvas">
+
+    <div class="header-bar">
+      <div class="brand-left">
+        <svg width="38" height="38" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" fill="#ED232A" rx="6"></rect>
+          <rect x="7" y="7" width="34" height="34" fill="#FFFFFF"></rect>
+          <rect x="21" y="0" width="6" height="48" fill="#FFFFFF"></rect>
+          <rect x="0" y="21" width="48" height="6" fill="#FFFFFF"></rect>
+          <rect x="14" y="14" width="20" height="20" fill="#004C8F"></rect>
+        </svg>
+        <div class="brand-text">
+          <h1>HDFC Bank - Branch Manager Dashboard</h1>
+          <p>"We understand your world" | Mobile, Tablet &amp; Desktop Ready</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <button class="btn btn-amber" onclick="downloadDashboardFile()">⬇ Download File</button>
+        <button class="btn btn-blue" onclick="focusCell(0, 0)">⌨ First Cell</button>
+        <button class="btn btn-green" onclick="toggleFullScreen()">⛶ Full Screen</button>
+        <button class="btn btn-red" onclick="resetAll()">↻ Reset</button>
+      </div>
+    </div>
+
+    <div class="section-label">
+      <span>1. Overall Branch Health &amp; Target Progress</span>
+      <span id="recordCount" style="color:#60A5FA;">Showing 10 of 10 Accounts</span>
+    </div>
+
+    <div class="health-grid">
+      <div class="health-card">
+        <div class="health-top">
+          <span class="health-title">Overall Health Score</span>
+          <span class="health-value" id="valHealth">95%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="barHealth" style="width: 95%; background: rgb(16, 185, 129);"></div>
+        </div>
+        <div class="health-sub">Status: Strong Branch</div>
+      </div>
+
+      <div class="health-card">
+        <div class="health-top">
+          <span class="health-title">Total Deposits</span>
+          <span class="health-value" id="valDep">₹780.0 L</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="barDep" style="width: 100%; background: rgb(59, 130, 246);"></div>
+        </div>
+        <div class="health-sub">Goal: ₹750 Lakhs</div>
+      </div>
+
+      <div class="health-card">
+        <div class="health-top">
+          <span class="health-title">Branch Net Profit</span>
+          <span class="health-value" id="valProfit">₹38.09 L</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="barProfit" style="width: 95%; background: rgb(16, 185, 129);"></div>
+        </div>
+        <div class="health-sub">Goal: ₹40 Lakhs</div>
+      </div>
+
+      <div class="health-card">
+        <div class="health-top">
+          <span class="health-title">Safe Loans (On Time)</span>
+          <span class="health-value" id="valSafe">90.4%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="barSafe" style="width: 90%; background: rgb(245, 158, 11);"></div>
+        </div>
+        <div class="health-sub">On-Time Repayments</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="card-heading">Manager Performance: Deposits vs Loans (₹L)</div>
+        <div class="bar-chart-box" id="mgrChartArea">
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div><div class="bar-num">₹195L</div><div class="bar-col" style="height:91px; background:#3B82F6;"></div></div>
+            <div><div class="bar-num">₹185L</div><div class="bar-col" style="height:86px; background:#10B981;"></div></div>
+          </div>
+          <div class="bar-label">Amit</div>
+        </div>
+      
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div><div class="bar-num">₹280L</div><div class="bar-col" style="height:130px; background:#3B82F6;"></div></div>
+            <div><div class="bar-num">₹215L</div><div class="bar-col" style="height:100px; background:#10B981;"></div></div>
+          </div>
+          <div class="bar-label">Priya</div>
+        </div>
+      
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div><div class="bar-num">₹240L</div><div class="bar-col" style="height:111px; background:#3B82F6;"></div></div>
+            <div><div class="bar-num">₹215L</div><div class="bar-col" style="height:100px; background:#10B981;"></div></div>
+          </div>
+          <div class="bar-label">Vikash</div>
+        </div>
+      
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div><div class="bar-num">₹65L</div><div class="bar-col" style="height:30px; background:#3B82F6;"></div></div>
+            <div><div class="bar-num">₹65L</div><div class="bar-col" style="height:30px; background:#10B981;"></div></div>
+          </div>
+          <div class="bar-label">Neha</div>
+        </div>
+      </div>
+        <div class="legend-row">
+          <span><i class="dot" style="background:#3B82F6;"></i>Deposits</span>
+          <span><i class="dot" style="background:#10B981;"></i>Loans</span>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="card-heading">Quarterly Growth: Deposits, Loans &amp; Profit (₹L)</div>
+        <div class="bar-chart-box" id="qtrChartArea">
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div><div class="bar-num">₹245L</div><div class="bar-col" style="height:123px; background:#2563EB;"></div></div>
+            <div><div class="bar-num">₹220L</div><div class="bar-col" style="height:110px; background:#60A5FA;"></div></div>
+            <div><div class="bar-num" style="color:#FDE047;">₹13L</div><div class="bar-col" style="height:6px; background:#FACC15; width:14px;"></div></div>
+          </div>
+          <div class="bar-label">Q1</div>
+        </div>
+      
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div><div class="bar-num">₹260L</div><div class="bar-col" style="height:130px; background:#2563EB;"></div></div>
+            <div><div class="bar-num">₹235L</div><div class="bar-col" style="height:118px; background:#60A5FA;"></div></div>
+            <div><div class="bar-num" style="color:#FDE047;">₹13L</div><div class="bar-col" style="height:7px; background:#FACC15; width:14px;"></div></div>
+          </div>
+          <div class="bar-label">Q2</div>
+        </div>
+      
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div><div class="bar-num">₹85L</div><div class="bar-col" style="height:43px; background:#2563EB;"></div></div>
+            <div><div class="bar-num">₹75L</div><div class="bar-col" style="height:38px; background:#60A5FA;"></div></div>
+            <div><div class="bar-num" style="color:#FDE047;">₹5L</div><div class="bar-col" style="height:4px; background:#FACC15; width:14px;"></div></div>
+          </div>
+          <div class="bar-label">Q3</div>
+        </div>
+      
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div><div class="bar-num">₹190L</div><div class="bar-col" style="height:95px; background:#2563EB;"></div></div>
+            <div><div class="bar-num">₹150L</div><div class="bar-col" style="height:75px; background:#60A5FA;"></div></div>
+            <div><div class="bar-num" style="color:#FDE047;">₹7L</div><div class="bar-col" style="height:4px; background:#FACC15; width:14px;"></div></div>
+          </div>
+          <div class="bar-label">Q4</div>
+        </div>
+      </div>
+        <div class="legend-row">
+          <span><i class="dot" style="background:#2563EB;"></i>Deposits</span>
+          <span><i class="dot" style="background:#60A5FA;"></i>Loans</span>
+          <span><i class="dot" style="background:#FACC15;"></i>Profit</span>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="card-heading">Loans by Category (Donut Chart)</div>
+        <div class="donut-box">
+          <svg width="145" height="145" viewBox="0 0 42 42" id="donutSvg"><circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#1E293B" stroke-width="6.5"></circle><circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#3B82F6" stroke-width="6.5" stroke-dasharray="43.38235294117647 56.61764705882353" stroke-dashoffset="25"></circle><circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#ED232A" stroke-width="6.5" stroke-dasharray="47.794117647058826 52.205882352941174" stroke-dashoffset="81.61764705882354"></circle><circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#10B981" stroke-width="6.5" stroke-dasharray="6.61764705882353 93.38235294117646" stroke-dashoffset="33.823529411764696"></circle><circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#F59E0B" stroke-width="6.5" stroke-dasharray="2.2058823529411766 97.79411764705883" stroke-dashoffset="27.20588235294116"></circle><text x="21" y="21.5" text-anchor="middle" fill="#FFFFFF" font-size="5" font-weight="bold">₹680L</text></svg>
+          <div class="donut-list" id="donutLegend"><div class="donut-row"><span><i class="dot" style="background:#3B82F6;"></i>Home Loan</span><b>₹295L (43%)</b></div><div class="donut-row"><span><i class="dot" style="background:#ED232A;"></i>Business Loan</span><b>₹325L (48%)</b></div><div class="donut-row"><span><i class="dot" style="background:#10B981;"></i>Car Loan</span><b>₹45L (7%)</b></div><div class="donut-row"><span><i class="dot" style="background:#F59E0B;"></i>Personal Loan</span><b>₹15L (2%)</b></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">
+      <span>2. Slicers, Search &amp; Filter Controls</span>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="card-heading">Quick Slicers</div>
+        <div class="slicer-wrap">
+          <div class="slicer-box">
+            <span class="slicer-label">Qtr:</span>
+            <button class="slicer-btn active" onclick="setSlicer('qtr','All',this)">All</button>
+            <button class="slicer-btn" onclick="setSlicer('qtr','Q1',this)">Q1</button>
+            <button class="slicer-btn" onclick="setSlicer('qtr','Q2',this)">Q2</button>
+            <button class="slicer-btn" onclick="setSlicer('qtr','Q3',this)">Q3</button>
+            <button class="slicer-btn" onclick="setSlicer('qtr','Q4',this)">Q4</button>
+          </div>
+
+          <div class="slicer-box">
+            <span class="slicer-label">Status:</span>
+            <button class="slicer-btn active" onclick="setSlicer('status','All',this)">All</button>
+            <button class="slicer-btn" onclick="setSlicer('status','On Time',this)">On Time</button>
+            <button class="slicer-btn" onclick="setSlicer('status','Late',this)">Late</button>
+            <button class="slicer-btn" onclick="setSlicer('status','Defaulted',this)">Defaulted</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="card-heading">Search &amp; Filter Tools</div>
+        <div class="search-filter-wrap">
+          <input type="text" id="searchBox" class="dark-input" placeholder="Customer Name..." style="width:130px;">
+          <button class="btn btn-blue" onclick="runSearch()">Search</button>
+
+          <select id="mgrSelect" class="dark-select">
+            <option value="All">All Managers</option>
+            <option value="Amit Verma">Amit Verma</option>
+            <option value="Priya Nair">Priya Nair</option>
+            <option value="Vikash Sinha">Vikash Sinha</option>
+            <option value="Neha Kapoor">Neha Kapoor</option>
+          </select>
+
+          <button class="btn btn-red" onclick="runFilter()">Filter</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">
+      <span>3. Dynamic Pivot Table Matrix (Scrollable)</span>
+    </div>
+
+    <div class="pivot-builder-card">
+      <div class="pivot-setup-grid">
+        <div class="pivot-field-group">
+          <label>Rows:</label>
+          <select id="pivotRowField" class="dark-select" style="width:100%;" onchange="rebuildPivot()">
+            <option value="manager">Manager</option>
+            <option value="qtr">Quarter</option>
+            <option value="loanType">Loan Type</option>
+            <option value="status">Status</option>
+          </select>
+        </div>
+
+        <div class="pivot-field-group">
+          <label>Columns:</label>
+          <select id="pivotColField" class="dark-select" style="width:100%;" onchange="rebuildPivot()">
+            <option value="none">(None)</option>
+            <option value="qtr">Quarter</option>
+            <option value="loanType">Loan Type</option>
+            <option value="status">Status</option>
+          </select>
+        </div>
+
+        <div class="pivot-field-group">
+          <label>Values:</label>
+          <select id="pivotValField" class="dark-select" style="width:100%;" onchange="rebuildPivot()">
+            <option value="totalDep">Total Deposits</option>
+            <option value="loan">Loans Given</option>
+            <option value="profit">Branch Profit</option>
+          </select>
+        </div>
+
+        <div class="pivot-field-group" style="display:flex; align-items:flex-end;">
+          <button class="btn btn-blue" style="width:100%;" onclick="rebuildPivot()">Refresh Pivot</button>
+        </div>
+      </div>
+
+      <div class="pivot-table-scroll">
+        <table class="excel-pivot-table" id="excelPivotTable">
+          <thead id="pivotHead"><tr><th>Row (manager)</th><th>Sum</th><th>Count</th></tr></thead>
+          <tbody id="pivotBody"><tr><td><b>Amit Verma</b></td><td>₹195.0 L</td><td>2</td></tr><tr><td><b>Neha Kapoor</b></td><td>₹65.0 L</td><td>2</td></tr><tr><td><b>Priya Nair</b></td><td>₹280.0 L</td><td>3</td></tr><tr><td><b>Vikash Sinha</b></td><td>₹240.0 L</td><td>3</td></tr><tr class="total-row"><td>Grand Total</td><td>₹780.0 L</td><td>10</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-label">
+      <span>4. Interactive Data Sheet (Vertical &amp; Horizontal Scroll)</span>
+      <button class="btn btn-green" onclick="addRandomCustomer()">+ Add Customer</button>
+    </div>
+
+    <div class="table-card">
+      <div class="formula-banner">
+        <span>
+          <b style="color:#FACC15;">NAVIGATION:</b> Swipe/scroll horizontally on mobile, or use <b>Arrow Keys / Enter / Tab</b> on keyboard. Type directly to overwrite!
+        </span>
+        <span id="activeCellIndicator" style="color:#60A5FA; font-weight:700;">Active Cell: Row 1, Col 1</span>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:85px;">Acc ID</th>
+              <th style="width:150px;">Customer Name</th>
+              <th style="width:120px;">Manager</th>
+              <th style="width:70px;">Qtr</th>
+              <th style="width:85px;">Savings (₹L)</th>
+              <th style="width:85px;">Fixed (₹L)</th>
+              <th class="formula-th" style="width:95px;">= Total Dep</th>
+              <th style="width:120px;">Loan Type</th>
+              <th style="width:85px;">Loan (₹L)</th>
+              <th style="width:75px;">Rate (%)</th>
+              <th class="formula-th" style="width:95px;">= Interest</th>
+              <th class="formula-th" style="width:95px;">= Profit</th>
+              <th style="width:100px;">Status</th>
+              <th style="width:75px;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+        <tr id="row-0">
+          <td><b>HDFC-101</b></td>
+          <td><input id="grid-0-0" type="text" class="grid-cell" value="Rajesh Singhania" onfocus="onCellFocus(this, 0, 0)" oninput="editCell(0,'name',this.value)" onkeydown="handleGridKeyDown(event, 0, 0, 0, 'name', false)"></td>
+          <td>
+            <select id="grid-0-1" class="grid-cell" onfocus="onCellFocus(this, 0, 1)" onchange="editCell(0,'manager',this.value)" onkeydown="handleGridKeyDown(event, 0, 1, 0, 'manager', false)">
+              <option selected="">Amit Verma</option><option>Priya Nair</option><option>Vikash Sinha</option><option>Neha Kapoor</option>
+            </select>
+          </td>
+          <td>
+            <select id="grid-0-2" class="grid-cell" onfocus="onCellFocus(this, 0, 2)" onchange="editCell(0,'qtr',this.value)" onkeydown="handleGridKeyDown(event, 0, 2, 0, 'qtr', false)">
+              <option selected="">Q1</option><option>Q2</option><option>Q3</option><option>Q4</option>
+            </select>
+          </td>
+          <td><input id="grid-0-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="45" onfocus="onCellFocus(this, 0, 3)" oninput="editCell(0,'savings',this.value)" onkeydown="handleGridKeyDown(event, 0, 3, 0, 'savings', true)"></td>
+          <td><input id="grid-0-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="60" onfocus="onCellFocus(this, 0, 4)" oninput="editCell(0,'fd',this.value)" onkeydown="handleGridKeyDown(event, 0, 4, 0, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹105.0 L</td>
+          <td>
+            <select id="grid-0-5" class="grid-cell" onfocus="onCellFocus(this, 0, 5)" onchange="editCell(0,'loanType',this.value)" onkeydown="handleGridKeyDown(event, 0, 5, 0, 'loanType', false)">
+              <option selected="">Home Loan</option><option>Business Loan</option><option>Car Loan</option><option>Personal Loan</option>
+            </select>
+          </td>
+          <td><input id="grid-0-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="90" onfocus="onCellFocus(this, 0, 6)" oninput="editCell(0,'loan',this.value)" onkeydown="handleGridKeyDown(event, 0, 6, 0, 'loan', true)"></td>
+          <td><input id="grid-0-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="9" onfocus="onCellFocus(this, 0, 7)" oninput="editCell(0,'rate',this.value)" onkeydown="handleGridKeyDown(event, 0, 7, 0, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹8.10 L</td>
+          <td class="formula-cell c-prof">₹3.90 L</td>
+          <td>
+            <select id="grid-0-8" class="grid-cell" onfocus="onCellFocus(this, 0, 8)" onchange="editCell(0,'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, 0, 8, 0, 'status', false)">
+              <option selected="">On Time</option><option>Late</option><option>Defaulted</option>
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(0)">Delete</button></td>
+        </tr>
+      
+        <tr id="row-1">
+          <td><b>HDFC-102</b></td>
+          <td><input id="grid-1-0" type="text" class="grid-cell" value="Ananya Chatterjee" onfocus="onCellFocus(this, 1, 0)" oninput="editCell(1,'name',this.value)" onkeydown="handleGridKeyDown(event, 1, 0, 1, 'name', false)"></td>
+          <td>
+            <select id="grid-1-1" class="grid-cell" onfocus="onCellFocus(this, 1, 1)" onchange="editCell(1,'manager',this.value)" onkeydown="handleGridKeyDown(event, 1, 1, 1, 'manager', false)">
+              <option>Amit Verma</option><option selected="">Priya Nair</option><option>Vikash Sinha</option><option>Neha Kapoor</option>
+            </select>
+          </td>
+          <td>
+            <select id="grid-1-2" class="grid-cell" onfocus="onCellFocus(this, 1, 2)" onchange="editCell(1,'qtr',this.value)" onkeydown="handleGridKeyDown(event, 1, 2, 1, 'qtr', false)">
+              <option selected="">Q1</option><option>Q2</option><option>Q3</option><option>Q4</option>
+            </select>
+          </td>
+          <td><input id="grid-1-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="25" onfocus="onCellFocus(this, 1, 3)" oninput="editCell(1,'savings',this.value)" onkeydown="handleGridKeyDown(event, 1, 3, 1, 'savings', true)"></td>
+          <td><input id="grid-1-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="35" onfocus="onCellFocus(this, 1, 4)" oninput="editCell(1,'fd',this.value)" onkeydown="handleGridKeyDown(event, 1, 4, 1, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹60.0 L</td>
+          <td>
+            <select id="grid-1-5" class="grid-cell" onfocus="onCellFocus(this, 1, 5)" onchange="editCell(1,'loanType',this.value)" onkeydown="handleGridKeyDown(event, 1, 5, 1, 'loanType', false)">
+              <option>Home Loan</option><option>Business Loan</option><option selected="">Car Loan</option><option>Personal Loan</option>
+            </select>
+          </td>
+          <td><input id="grid-1-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="20" onfocus="onCellFocus(this, 1, 6)" oninput="editCell(1,'loan',this.value)" onkeydown="handleGridKeyDown(event, 1, 6, 1, 'loan', true)"></td>
+          <td><input id="grid-1-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="9.5" onfocus="onCellFocus(this, 1, 7)" oninput="editCell(1,'rate',this.value)" onkeydown="handleGridKeyDown(event, 1, 7, 1, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹1.90 L</td>
+          <td class="formula-cell c-prof">₹-0.50 L</td>
+          <td>
+            <select id="grid-1-8" class="grid-cell" onfocus="onCellFocus(this, 1, 8)" onchange="editCell(1,'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, 1, 8, 1, 'status', false)">
+              <option selected="">On Time</option><option>Late</option><option>Defaulted</option>
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(1)">Delete</button></td>
+        </tr>
+      
+        <tr id="row-2">
+          <td><b>HDFC-103</b></td>
+          <td><input id="grid-2-0" type="text" class="grid-cell" value="Chotanagpur Traders" onfocus="onCellFocus(this, 2, 0)" oninput="editCell(2,'name',this.value)" onkeydown="handleGridKeyDown(event, 2, 0, 2, 'name', false)"></td>
+          <td>
+            <select id="grid-2-1" class="grid-cell" onfocus="onCellFocus(this, 2, 1)" onchange="editCell(2,'manager',this.value)" onkeydown="handleGridKeyDown(event, 2, 1, 2, 'manager', false)">
+              <option>Amit Verma</option><option>Priya Nair</option><option selected="">Vikash Sinha</option><option>Neha Kapoor</option>
+            </select>
+          </td>
+          <td>
+            <select id="grid-2-2" class="grid-cell" onfocus="onCellFocus(this, 2, 2)" onchange="editCell(2,'qtr',this.value)" onkeydown="handleGridKeyDown(event, 2, 2, 2, 'qtr', false)">
+              <option selected="">Q1</option><option>Q2</option><option>Q3</option><option>Q4</option>
+            </select>
+          </td>
+          <td><input id="grid-2-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="55" onfocus="onCellFocus(this, 2, 3)" oninput="editCell(2,'savings',this.value)" onkeydown="handleGridKeyDown(event, 2, 3, 2, 'savings', true)"></td>
+          <td><input id="grid-2-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="25" onfocus="onCellFocus(this, 2, 4)" oninput="editCell(2,'fd',this.value)" onkeydown="handleGridKeyDown(event, 2, 4, 2, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹80.0 L</td>
+          <td>
+            <select id="grid-2-5" class="grid-cell" onfocus="onCellFocus(this, 2, 5)" onchange="editCell(2,'loanType',this.value)" onkeydown="handleGridKeyDown(event, 2, 5, 2, 'loanType', false)">
+              <option>Home Loan</option><option selected="">Business Loan</option><option>Car Loan</option><option>Personal Loan</option>
+            </select>
+          </td>
+          <td><input id="grid-2-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="110" onfocus="onCellFocus(this, 2, 6)" oninput="editCell(2,'loan',this.value)" onkeydown="handleGridKeyDown(event, 2, 6, 2, 'loan', true)"></td>
+          <td><input id="grid-2-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="11.5" onfocus="onCellFocus(this, 2, 7)" oninput="editCell(2,'rate',this.value)" onkeydown="handleGridKeyDown(event, 2, 7, 2, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹12.65 L</td>
+          <td class="formula-cell c-prof">₹9.45 L</td>
+          <td>
+            <select id="grid-2-8" class="grid-cell" onfocus="onCellFocus(this, 2, 8)" onchange="editCell(2,'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, 2, 8, 2, 'status', false)">
+              <option selected="">On Time</option><option>Late</option><option>Defaulted</option>
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(2)">Delete</button></td>
+        </tr>
+      
+        <tr id="row-3">
+          <td><b>HDFC-104</b></td>
+          <td><input id="grid-3-0" type="text" class="grid-cell" value="Saurabh Mukherjee" onfocus="onCellFocus(this, 3, 0)" oninput="editCell(3,'name',this.value)" onkeydown="handleGridKeyDown(event, 3, 0, 3, 'name', false)"></td>
+          <td>
+            <select id="grid-3-1" class="grid-cell" onfocus="onCellFocus(this, 3, 1)" onchange="editCell(3,'manager',this.value)" onkeydown="handleGridKeyDown(event, 3, 1, 3, 'manager', false)">
+              <option>Amit Verma</option><option>Priya Nair</option><option>Vikash Sinha</option><option selected="">Neha Kapoor</option>
+            </select>
+          </td>
+          <td>
+            <select id="grid-3-2" class="grid-cell" onfocus="onCellFocus(this, 3, 2)" onchange="editCell(3,'qtr',this.value)" onkeydown="handleGridKeyDown(event, 3, 2, 3, 'qtr', false)">
+              <option>Q1</option><option selected="">Q2</option><option>Q3</option><option>Q4</option>
+            </select>
+          </td>
+          <td><input id="grid-3-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="12" onfocus="onCellFocus(this, 3, 3)" oninput="editCell(3,'savings',this.value)" onkeydown="handleGridKeyDown(event, 3, 3, 3, 'savings', true)"></td>
+          <td><input id="grid-3-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="18" onfocus="onCellFocus(this, 3, 4)" oninput="editCell(3,'fd',this.value)" onkeydown="handleGridKeyDown(event, 3, 4, 3, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹30.0 L</td>
+          <td>
+            <select id="grid-3-5" class="grid-cell" onfocus="onCellFocus(this, 3, 5)" onchange="editCell(3,'loanType',this.value)" onkeydown="handleGridKeyDown(event, 3, 5, 3, 'loanType', false)">
+              <option>Home Loan</option><option>Business Loan</option><option>Car Loan</option><option selected="">Personal Loan</option>
+            </select>
+          </td>
+          <td><input id="grid-3-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="15" onfocus="onCellFocus(this, 3, 6)" oninput="editCell(3,'loan',this.value)" onkeydown="handleGridKeyDown(event, 3, 6, 3, 'loan', true)"></td>
+          <td><input id="grid-3-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="13.5" onfocus="onCellFocus(this, 3, 7)" oninput="editCell(3,'rate',this.value)" onkeydown="handleGridKeyDown(event, 3, 7, 3, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹2.02 L</td>
+          <td class="formula-cell c-prof">₹0.82 L</td>
+          <td>
+            <select id="grid-3-8" class="grid-cell" onfocus="onCellFocus(this, 3, 8)" onchange="editCell(3,'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, 3, 8, 3, 'status', false)">
+              <option>On Time</option><option selected="">Late</option><option>Defaulted</option>
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(3)">Delete</button></td>
+        </tr>
+      
+        <tr id="row-4">
+          <td><b>HDFC-105</b></td>
+          <td><input id="grid-4-0" type="text" class="grid-cell" value="Meera Enterprises" onfocus="onCellFocus(this, 4, 0)" oninput="editCell(4,'name',this.value)" onkeydown="handleGridKeyDown(event, 4, 0, 4, 'name', false)"></td>
+          <td>
+            <select id="grid-4-1" class="grid-cell" onfocus="onCellFocus(this, 4, 1)" onchange="editCell(4,'manager',this.value)" onkeydown="handleGridKeyDown(event, 4, 1, 4, 'manager', false)">
+              <option selected="">Amit Verma</option><option>Priya Nair</option><option>Vikash Sinha</option><option>Neha Kapoor</option>
+            </select>
+          </td>
+          <td>
+            <select id="grid-4-2" class="grid-cell" onfocus="onCellFocus(this, 4, 2)" onchange="editCell(4,'qtr',this.value)" onkeydown="handleGridKeyDown(event, 4, 2, 4, 'qtr', false)">
+              <option>Q1</option><option selected="">Q2</option><option>Q3</option><option>Q4</option>
+            </select>
+          </td>
+          <td><input id="grid-4-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="40" onfocus="onCellFocus(this, 4, 3)" oninput="editCell(4,'savings',this.value)" onkeydown="handleGridKeyDown(event, 4, 3, 4, 'savings', true)"></td>
+          <td><input id="grid-4-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="50" onfocus="onCellFocus(this, 4, 4)" oninput="editCell(4,'fd',this.value)" onkeydown="handleGridKeyDown(event, 4, 4, 4, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹90.0 L</td>
+          <td>
+            <select id="grid-4-5" class="grid-cell" onfocus="onCellFocus(this, 4, 5)" onchange="editCell(4,'loanType',this.value)" onkeydown="handleGridKeyDown(event, 4, 5, 4, 'loanType', false)">
+              <option>Home Loan</option><option selected="">Business Loan</option><option>Car Loan</option><option>Personal Loan</option>
+            </select>
+          </td>
+          <td><input id="grid-4-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="95" onfocus="onCellFocus(this, 4, 6)" oninput="editCell(4,'loan',this.value)" onkeydown="handleGridKeyDown(event, 4, 6, 4, 'loan', true)"></td>
+          <td><input id="grid-4-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="11" onfocus="onCellFocus(this, 4, 7)" oninput="editCell(4,'rate',this.value)" onkeydown="handleGridKeyDown(event, 4, 7, 4, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹10.45 L</td>
+          <td class="formula-cell c-prof">₹6.85 L</td>
+          <td>
+            <select id="grid-4-8" class="grid-cell" onfocus="onCellFocus(this, 4, 8)" onchange="editCell(4,'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, 4, 8, 4, 'status', false)">
+              <option selected="">On Time</option><option>Late</option><option>Defaulted</option>
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(4)">Delete</button></td>
+        </tr>
+      
+        <tr id="row-5">
+          <td><b>HDFC-106</b></td>
+          <td><input id="grid-5-0" type="text" class="grid-cell" value="Dr. Arvind Kulkarni" onfocus="onCellFocus(this, 5, 0)" oninput="editCell(5,'name',this.value)" onkeydown="handleGridKeyDown(event, 5, 0, 5, 'name', false)"></td>
+          <td>
+            <select id="grid-5-1" class="grid-cell" onfocus="onCellFocus(this, 5, 1)" onchange="editCell(5,'manager',this.value)" onkeydown="handleGridKeyDown(event, 5, 1, 5, 'manager', false)">
+              <option>Amit Verma</option><option selected="">Priya Nair</option><option>Vikash Sinha</option><option>Neha Kapoor</option>
+            </select>
+          </td>
+          <td>
+            <select id="grid-5-2" class="grid-cell" onfocus="onCellFocus(this, 5, 2)" onchange="editCell(5,'qtr',this.value)" onkeydown="handleGridKeyDown(event, 5, 2, 5, 'qtr', false)">
+              <option>Q1</option><option selected="">Q2</option><option>Q3</option><option>Q4</option>
+            </select>
+          </td>
+          <td><input id="grid-5-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="65" onfocus="onCellFocus(this, 5, 3)" oninput="editCell(5,'savings',this.value)" onkeydown="handleGridKeyDown(event, 5, 3, 5, 'savings', true)"></td>
+          <td><input id="grid-5-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="75" onfocus="onCellFocus(this, 5, 4)" oninput="editCell(5,'fd',this.value)" onkeydown="handleGridKeyDown(event, 5, 4, 5, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹140.0 L</td>
+          <td>
+            <select id="grid-5-5" class="grid-cell" onfocus="onCellFocus(this, 5, 5)" onchange="editCell(5,'loanType',this.value)" onkeydown="handleGridKeyDown(event, 5, 5, 5, 'loanType', false)">
+              <option selected="">Home Loan</option><option>Business Loan</option><option>Car Loan</option><option>Personal Loan</option>
+            </select>
+          </td>
+          <td><input id="grid-5-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="125" onfocus="onCellFocus(this, 5, 6)" oninput="editCell(5,'loan',this.value)" onkeydown="handleGridKeyDown(event, 5, 6, 5, 'loan', true)"></td>
+          <td><input id="grid-5-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="8.8" onfocus="onCellFocus(this, 5, 7)" oninput="editCell(5,'rate',this.value)" onkeydown="handleGridKeyDown(event, 5, 7, 5, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹11.00 L</td>
+          <td class="formula-cell c-prof">₹5.40 L</td>
+          <td>
+            <select id="grid-5-8" class="grid-cell" onfocus="onCellFocus(this, 5, 8)" onchange="editCell(5,'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, 5, 8, 5, 'status', false)">
+              <option selected="">On Time</option><option>Late</option><option>Defaulted</option>
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(5)">Delete</button></td>
+        </tr>
+      
+        <tr id="row-6">
+          <td><b>HDFC-107</b></td>
+          <td><input id="grid-6-0" type="text" class="grid-cell" value="Karanveer Oberoi" onfocus="onCellFocus(this, 6, 0)" oninput="editCell(6,'name',this.value)" onkeydown="handleGridKeyDown(event, 6, 0, 6, 'name', false)"></td>
+          <td>
+            <select id="grid-6-1" class="grid-cell" onfocus="onCellFocus(this, 6, 1)" onchange="editCell(6,'manager',this.value)" onkeydown="handleGridKeyDown(event, 6, 1, 6, 'manager', false)">
+              <option>Amit Verma</option><option>Priya Nair</option><option selected="">Vikash Sinha</option><option>Neha Kapoor</option>
+            </select>
+          </td>
+          <td>
+            <select id="grid-6-2" class="grid-cell" onfocus="onCellFocus(this, 6, 2)" onchange="editCell(6,'qtr',this.value)" onkeydown="handleGridKeyDown(event, 6, 2, 6, 'qtr', false)">
+              <option>Q1</option><option>Q2</option><option selected="">Q3</option><option>Q4</option>
+            </select>
+          </td>
+          <td><input id="grid-6-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="22" onfocus="onCellFocus(this, 6, 3)" oninput="editCell(6,'savings',this.value)" onkeydown="handleGridKeyDown(event, 6, 3, 6, 'savings', true)"></td>
+          <td><input id="grid-6-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="28" onfocus="onCellFocus(this, 6, 4)" oninput="editCell(6,'fd',this.value)" onkeydown="handleGridKeyDown(event, 6, 4, 6, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹50.0 L</td>
+          <td>
+            <select id="grid-6-5" class="grid-cell" onfocus="onCellFocus(this, 6, 5)" onchange="editCell(6,'loanType',this.value)" onkeydown="handleGridKeyDown(event, 6, 5, 6, 'loanType', false)">
+              <option>Home Loan</option><option>Business Loan</option><option selected="">Car Loan</option><option>Personal Loan</option>
+            </select>
+          </td>
+          <td><input id="grid-6-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="25" onfocus="onCellFocus(this, 6, 6)" oninput="editCell(6,'loan',this.value)" onkeydown="handleGridKeyDown(event, 6, 6, 6, 'loan', true)"></td>
+          <td><input id="grid-6-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="9.4" onfocus="onCellFocus(this, 6, 7)" oninput="editCell(6,'rate',this.value)" onkeydown="handleGridKeyDown(event, 6, 7, 6, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹2.35 L</td>
+          <td class="formula-cell c-prof">₹0.35 L</td>
+          <td>
+            <select id="grid-6-8" class="grid-cell" onfocus="onCellFocus(this, 6, 8)" onchange="editCell(6,'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, 6, 8, 6, 'status', false)">
+              <option selected="">On Time</option><option>Late</option><option>Defaulted</option>
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(6)">Delete</button></td>
+        </tr>
+      
+        <tr id="row-7">
+          <td><b>HDFC-108</b></td>
+          <td><input id="grid-7-0" type="text" class="grid-cell" value="Apex Builders" onfocus="onCellFocus(this, 7, 0)" oninput="editCell(7,'name',this.value)" onkeydown="handleGridKeyDown(event, 7, 0, 7, 'name', false)"></td>
+          <td>
+            <select id="grid-7-1" class="grid-cell" onfocus="onCellFocus(this, 7, 1)" onchange="editCell(7,'manager',this.value)" onkeydown="handleGridKeyDown(event, 7, 1, 7, 'manager', false)">
+              <option>Amit Verma</option><option>Priya Nair</option><option>Vikash Sinha</option><option selected="">Neha Kapoor</option>
+            </select>
+          </td>
+          <td>
+            <select id="grid-7-2" class="grid-cell" onfocus="onCellFocus(this, 7, 2)" onchange="editCell(7,'qtr',this.value)" onkeydown="handleGridKeyDown(event, 7, 2, 7, 'qtr', false)">
+              <option>Q1</option><option>Q2</option><option selected="">Q3</option><option>Q4</option>
+            </select>
+          </td>
+          <td><input id="grid-7-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="15" onfocus="onCellFocus(this, 7, 3)" oninput="editCell(7,'savings',this.value)" onkeydown="handleGridKeyDown(event, 7, 3, 7, 'savings', true)"></td>
+          <td><input id="grid-7-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="20" onfocus="onCellFocus(this, 7, 4)" oninput="editCell(7,'fd',this.value)" onkeydown="handleGridKeyDown(event, 7, 4, 7, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹35.0 L</td>
+          <td>
+            <select id="grid-7-5" class="grid-cell" onfocus="onCellFocus(this, 7, 5)" onchange="editCell(7,'loanType',this.value)" onkeydown="handleGridKeyDown(event, 7, 5, 7, 'loanType', false)">
+              <option>Home Loan</option><option selected="">Business Loan</option><option>Car Loan</option><option>Personal Loan</option>
+            </select>
+          </td>
+          <td><input id="grid-7-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="50" onfocus="onCellFocus(this, 7, 6)" oninput="editCell(7,'loan',this.value)" onkeydown="handleGridKeyDown(event, 7, 6, 7, 'loan', true)"></td>
+          <td><input id="grid-7-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="12" onfocus="onCellFocus(this, 7, 7)" oninput="editCell(7,'rate',this.value)" onkeydown="handleGridKeyDown(event, 7, 7, 7, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹6.00 L</td>
+          <td class="formula-cell c-prof">₹4.60 L</td>
+          <td>
+            <select id="grid-7-8" class="grid-cell" onfocus="onCellFocus(this, 7, 8)" onchange="editCell(7,'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, 7, 8, 7, 'status', false)">
+              <option>On Time</option><option>Late</option><option selected="">Defaulted</option>
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(7)">Delete</button></td>
+        </tr>
+      
+        <tr id="row-8">
+          <td><b>HDFC-109</b></td>
+          <td><input id="grid-8-0" type="text" class="grid-cell" value="Rohan Gems &amp; Co" onfocus="onCellFocus(this, 8, 0)" oninput="editCell(8,'name',this.value)" onkeydown="handleGridKeyDown(event, 8, 0, 8, 'name', false)"></td>
+          <td>
+            <select id="grid-8-1" class="grid-cell" onfocus="onCellFocus(this, 8, 1)" onchange="editCell(8,'manager',this.value)" onkeydown="handleGridKeyDown(event, 8, 1, 8, 'manager', false)">
+              <option>Amit Verma</option><option selected="">Priya Nair</option><option>Vikash Sinha</option><option>Neha Kapoor</option>
+            </select>
+          </td>
+          <td>
+            <select id="grid-8-2" class="grid-cell" onfocus="onCellFocus(this, 8, 2)" onchange="editCell(8,'qtr',this.value)" onkeydown="handleGridKeyDown(event, 8, 2, 8, 'qtr', false)">
+              <option>Q1</option><option>Q2</option><option>Q3</option><option selected="">Q4</option>
+            </select>
+          </td>
+          <td><input id="grid-8-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="35" onfocus="onCellFocus(this, 8, 3)" oninput="editCell(8,'savings',this.value)" onkeydown="handleGridKeyDown(event, 8, 3, 8, 'savings', true)"></td>
+          <td><input id="grid-8-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="45" onfocus="onCellFocus(this, 8, 4)" oninput="editCell(8,'fd',this.value)" onkeydown="handleGridKeyDown(event, 8, 4, 8, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹80.0 L</td>
+          <td>
+            <select id="grid-8-5" class="grid-cell" onfocus="onCellFocus(this, 8, 5)" onchange="editCell(8,'loanType',this.value)" onkeydown="handleGridKeyDown(event, 8, 5, 8, 'loanType', false)">
+              <option>Home Loan</option><option selected="">Business Loan</option><option>Car Loan</option><option>Personal Loan</option>
+            </select>
+          </td>
+          <td><input id="grid-8-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="70" onfocus="onCellFocus(this, 8, 6)" oninput="editCell(8,'loan',this.value)" onkeydown="handleGridKeyDown(event, 8, 6, 8, 'loan', true)"></td>
+          <td><input id="grid-8-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="11" onfocus="onCellFocus(this, 8, 7)" oninput="editCell(8,'rate',this.value)" onkeydown="handleGridKeyDown(event, 8, 7, 8, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹7.70 L</td>
+          <td class="formula-cell c-prof">₹4.50 L</td>
+          <td>
+            <select id="grid-8-8" class="grid-cell" onfocus="onCellFocus(this, 8, 8)" onchange="editCell(8,'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, 8, 8, 8, 'status', false)">
+              <option selected="">On Time</option><option>Late</option><option>Defaulted</option>
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(8)">Delete</button></td>
+        </tr>
+      
+        <tr id="row-9">
+          <td><b>HDFC-110</b></td>
+          <td><input id="grid-9-0" type="text" class="grid-cell" value="Deepak Agarwalla" onfocus="onCellFocus(this, 9, 0)" oninput="editCell(9,'name',this.value)" onkeydown="handleGridKeyDown(event, 9, 0, 9, 'name', false)"></td>
+          <td>
+            <select id="grid-9-1" class="grid-cell" onfocus="onCellFocus(this, 9, 1)" onchange="editCell(9,'manager',this.value)" onkeydown="handleGridKeyDown(event, 9, 1, 9, 'manager', false)">
+              <option>Amit Verma</option><option>Priya Nair</option><option selected="">Vikash Sinha</option><option>Neha Kapoor</option>
+            </select>
+          </td>
+          <td>
+            <select id="grid-9-2" class="grid-cell" onfocus="onCellFocus(this, 9, 2)" onchange="editCell(9,'qtr',this.value)" onkeydown="handleGridKeyDown(event, 9, 2, 9, 'qtr', false)">
+              <option>Q1</option><option>Q2</option><option>Q3</option><option selected="">Q4</option>
+            </select>
+          </td>
+          <td><input id="grid-9-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="50" onfocus="onCellFocus(this, 9, 3)" oninput="editCell(9,'savings',this.value)" onkeydown="handleGridKeyDown(event, 9, 3, 9, 'savings', true)"></td>
+          <td><input id="grid-9-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="60" onfocus="onCellFocus(this, 9, 4)" oninput="editCell(9,'fd',this.value)" onkeydown="handleGridKeyDown(event, 9, 4, 9, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹110.0 L</td>
+          <td>
+            <select id="grid-9-5" class="grid-cell" onfocus="onCellFocus(this, 9, 5)" onchange="editCell(9,'loanType',this.value)" onkeydown="handleGridKeyDown(event, 9, 5, 9, 'loanType', false)">
+              <option selected="">Home Loan</option><option>Business Loan</option><option>Car Loan</option><option>Personal Loan</option>
+            </select>
+          </td>
+          <td><input id="grid-9-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="80" onfocus="onCellFocus(this, 9, 6)" oninput="editCell(9,'loan',this.value)" onkeydown="handleGridKeyDown(event, 9, 6, 9, 'loan', true)"></td>
+          <td><input id="grid-9-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="8.9" onfocus="onCellFocus(this, 9, 7)" oninput="editCell(9,'rate',this.value)" onkeydown="handleGridKeyDown(event, 9, 7, 9, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹7.12 L</td>
+          <td class="formula-cell c-prof">₹2.72 L</td>
+          <td>
+            <select id="grid-9-8" class="grid-cell" onfocus="onCellFocus(this, 9, 8)" onchange="editCell(9,'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, 9, 8, 9, 'status', false)">
+              <option selected="">On Time</option><option>Late</option><option>Defaulted</option>
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(9)">Delete</button></td>
+        </tr>
+      </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="">
+  try {
+    if (window.google && google.colab && google.colab.output) {
+      google.colab.output.setIframeHeight(950, false);
+    }
+  } catch (e) {}
+
+  const defaultData = [
+    { id: "HDFC-101", name: "Rajesh Singhania", manager: "Amit Verma", qtr: "Q1", savings: 45, fd: 60, loanType: "Home Loan", loan: 90, rate: 9.0, status: "On Time" },
+    { id: "HDFC-102", name: "Ananya Chatterjee", manager: "Priya Nair", qtr: "Q1", savings: 25, fd: 35, loanType: "Car Loan", loan: 20, rate: 9.5, status: "On Time" },
+    { id: "HDFC-103", name: "Chotanagpur Traders", manager: "Vikash Sinha", qtr: "Q1", savings: 55, fd: 25, loanType: "Business Loan", loan: 110, rate: 11.5, status: "On Time" },
+    { id: "HDFC-104", name: "Saurabh Mukherjee", manager: "Neha Kapoor", qtr: "Q2", savings: 12, fd: 18, loanType: "Personal Loan", loan: 15, rate: 13.5, status: "Late" },
+    { id: "HDFC-105", name: "Meera Enterprises", manager: "Amit Verma", qtr: "Q2", savings: 40, fd: 50, loanType: "Business Loan", loan: 95, rate: 11.0, status: "On Time" },
+    { id: "HDFC-106", name: "Dr. Arvind Kulkarni", manager: "Priya Nair", qtr: "Q2", savings: 65, fd: 75, loanType: "Home Loan", loan: 125, rate: 8.8, status: "On Time" },
+    { id: "HDFC-107", name: "Karanveer Oberoi", manager: "Vikash Sinha", qtr: "Q3", savings: 22, fd: 28, loanType: "Car Loan", loan: 25, rate: 9.4, status: "On Time" },
+    { id: "HDFC-108", name: "Apex Builders", manager: "Neha Kapoor", qtr: "Q3", savings: 15, fd: 20, loanType: "Business Loan", loan: 50, rate: 12.0, status: "Defaulted" },
+    { id: "HDFC-109", name: "Rohan Gems & Co", manager: "Priya Nair", qtr: "Q4", savings: 35, fd: 45, loanType: "Business Loan", loan: 70, rate: 11.0, status: "On Time" },
+    { id: "HDFC-110", name: "Deepak Agarwalla", manager: "Vikash Sinha", qtr: "Q4", savings: 50, fd: 60, loanType: "Home Loan", loan: 80, rate: 8.9, status: "On Time" }
+  ];
+
+  let accounts = JSON.parse(JSON.stringify(defaultData));
+  try {
+    const saved = localStorage.getItem("hdfc_branch_data_v3");
+    if (saved) accounts = JSON.parse(saved);
+  } catch (e) {}
+
+  function saveState() {
+    try { localStorage.setItem("hdfc_branch_data_v3", JSON.stringify(accounts)); } catch (e) {}
+  }
+
+  let active = { qtr: "All", status: "All", search: "", manager: "All", loanType: "All" };
+  let cellOverwriteReady = true;
+
+  const randomNames = ["Vikram Malhotra", "Sunita Agarwal", "Rahul Sharma", "Pooja Sen", "Amitabh Roy", "Kavita Pillai", "Sanjay Khandelwal", "Divya Ramesh"];
+  const managersList = ["Amit Verma", "Priya Nair", "Vikash Sinha", "Neha Kapoor"];
+  const quartersList = ["Q1", "Q2", "Q3", "Q4"];
+  const loanTypesList = ["Home Loan", "Business Loan", "Car Loan", "Personal Loan"];
+  const statusList = ["On Time", "On Time", "Late", "Defaulted"];
+
+  function downloadDashboardFile() {
+    // Downloads as index.html so it is ready for GitHub Pages immediately
+    const fileName = "index.html";
+    const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+    const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = fileName;
+    a.click();
+  }
+
+  function toggleFullScreen() {
+    const vp = document.getElementById("viewport");
+    if (!document.fullscreenElement) {
+      if (vp.requestFullscreen) vp.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+    }
+  }
+
+  function computeRow(r) {
+    const totalDep = +(r.savings + r.fd).toFixed(1);
+    const interest = +((r.loan * r.rate) / 100).toFixed(2);
+    const cost = +(totalDep * 0.04).toFixed(2);
+    const profit = +(interest - cost).toFixed(2);
+    return { ...r, totalDep, interest, profit };
+  }
+
+  function getFilteredRows() {
+    return accounts.map((r, i) => ({ ...computeRow(r), _i: i })).filter(r => {
+      if (active.qtr !== "All" && r.qtr !== active.qtr) return false;
+      if (active.status !== "All" && r.status !== active.status) return false;
+      if (active.manager !== "All" && r.manager !== active.manager) return false;
+      if (active.loanType !== "All" && r.loanType !== active.loanType) return false;
+      if (active.search) {
+        const q = active.search.toLowerCase();
+        if (!r.name.toLowerCase().includes(q) && !r.id.toLowerCase().includes(q)) return false;
+      }
+      return true;
+    });
+  }
+
+  const TOTAL_COLS = 9;
+  const colNamesMap = ["Customer Name", "Manager", "Quarter", "Savings", "Fixed Dep", "Loan Type", "Loan Given", "Interest Rate", "Status"];
+
+  function focusCell(rIdx, cIdx) {
+    const totalRows = getFilteredRows().length;
+    if (totalRows === 0) return;
+    const targetR = Math.max(0, Math.min(totalRows - 1, rIdx));
+    const targetC = Math.max(0, Math.min(TOTAL_COLS - 1, cIdx));
+    const el = document.getElementById(`grid-${targetR}-${targetC}`);
+    if (el) {
+      cellOverwriteReady = true;
+      el.focus();
+      if (el.tagName === "INPUT") setTimeout(() => el.select(), 0);
+      el.scrollIntoView({ block: "nearest", inline: "nearest" });
+      document.getElementById("activeCellIndicator").textContent = `Active Cell: Row ${targetR + 1} (${colNamesMap[targetC]})`;
+    }
+  }
+
+  function onCellFocus(el, rIdx, cIdx) {
+    cellOverwriteReady = true;
+    if (el.tagName === "INPUT") setTimeout(() => el.select(), 0);
+    document.getElementById("activeCellIndicator").textContent = `Active Cell: Row ${rIdx + 1} (${colNamesMap[cIdx]})`;
+  }
+
+  function handleGridKeyDown(e, rIdx, cIdx, dataIndex, fieldName, isNumeric) {
+    const totalRows = getFilteredRows().length;
+    if (e.key === "ArrowDown" || (e.key === "Enter" && !e.shiftKey) || e.key === "PageDown") {
+      e.preventDefault();
+      const step = e.key === "PageDown" ? 4 : 1;
+      focusCell(rIdx + step, cIdx);
+      return;
+    }
+    if (e.key === "ArrowUp" || (e.key === "Enter" && e.shiftKey) || e.key === "PageUp") {
+      e.preventDefault();
+      const step = e.key === "PageUp" ? 4 : 1;
+      focusCell(rIdx - step, cIdx);
+      return;
+    }
+    if (e.key === "ArrowRight" || (e.key === "Tab" && !e.shiftKey)) {
+      e.preventDefault();
+      if (cIdx < TOTAL_COLS - 1) focusCell(rIdx, cIdx + 1);
+      else if (rIdx < totalRows - 1) focusCell(rIdx + 1, 0);
+      return;
+    }
+    if (e.key === "ArrowLeft" || (e.key === "Tab" && e.shiftKey)) {
+      e.preventDefault();
+      if (cIdx > 0) focusCell(rIdx, cIdx - 1);
+      else if (rIdx > 0) focusCell(rIdx - 1, TOTAL_COLS - 1);
+      return;
+    }
+    const el = e.target;
+    if (el.tagName === "INPUT" && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      if (isNumeric && !/[0-9.]/.test(e.key)) { e.preventDefault(); return; }
+      if (cellOverwriteReady) {
+        e.preventDefault();
+        el.value = e.key;
+        cellOverwriteReady = false;
+        editCell(dataIndex, fieldName, el.value);
+      }
+    }
+  }
+
+  function rebuildPivot() {
+    const rows = getFilteredRows();
+    const rowField = document.getElementById("pivotRowField").value;
+    const colField = document.getElementById("pivotColField").value;
+    const valField = document.getElementById("pivotValField").value;
+
+    const rowLabelsSet = new Set(), colLabelsSet = new Set();
+    rows.forEach(r => {
+      rowLabelsSet.add(r[rowField]);
+      if (colField !== "none") colLabelsSet.add(r[colField]);
+    });
+
+    const rowLabels = Array.from(rowLabelsSet).sort();
+    const colLabels = Array.from(colLabelsSet).sort();
+    const head = document.getElementById("pivotHead"), tbody = document.getElementById("pivotBody");
+
+    if (colField === "none") {
+      head.innerHTML = `<tr><th>Row (${rowField})</th><th>Sum</th><th>Count</th></tr>`;
+      if (rowLabels.length === 0) { tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">No data.</td></tr>`; return; }
+      let grandSum = 0, grandCount = 0;
+      tbody.innerHTML = rowLabels.map(lbl => {
+        const subRows = rows.filter(r => r[rowField] === lbl);
+        const sumVal = subRows.reduce((acc, r) => acc + r[valField], 0);
+        grandSum += sumVal; grandCount += subRows.length;
+        return `<tr><td><b>${lbl}</b></td><td>₹${sumVal.toFixed(1)} L</td><td>${subRows.length}</td></tr>`;
+      }).join("") + `<tr class="total-row"><td>Grand Total</td><td>₹${grandSum.toFixed(1)} L</td><td>${grandCount}</td></tr>`;
+    } else {
+      let headHtml = `<tr><th>Row \ Col</th>`;
+      colLabels.forEach(c => headHtml += `<th>${c}</th>`);
+      headHtml += `<th>Total</th></tr>`;
+      head.innerHTML = headHtml;
+
+      let tbodyHtml = "";
+      const colTotals = {};
+      colLabels.forEach(c => colTotals[c] = 0);
+      let absoluteGrandTotal = 0;
+
+      rowLabels.forEach(rLbl => {
+        let rowSum = 0;
+        let rowHtml = `<tr><td><b>${rLbl}</b></td>`;
+        colLabels.forEach(cLbl => {
+          const matchVal = rows.filter(r => r[rowField] === rLbl && r[colField] === cLbl).reduce((acc, r) => acc + r[valField], 0);
+          rowSum += matchVal; colTotals[cLbl] += matchVal; absoluteGrandTotal += matchVal;
+          rowHtml += `<td>${matchVal > 0 ? '₹' + matchVal.toFixed(1) + ' L' : '-'}</td>`;
+        });
+        rowHtml += `<td><b>₹${rowSum.toFixed(1)} L</b></td></tr>`;
+        tbodyHtml += rowHtml;
+      });
+
+      let totalRowHtml = `<tr class="total-row"><td>Grand Total</td>`;
+      colLabels.forEach(c => totalRowHtml += `<td>₹${colTotals[c].toFixed(1)} L</td>`);
+      totalRowHtml += `<td>₹${absoluteGrandTotal.toFixed(1)} L</td></tr>`;
+      tbody.innerHTML = tbodyHtml + totalRowHtml;
+    }
+  }
+
+  function renderVisualGraphs(rows) {
+    const managers = ["Amit Verma", "Priya Nair", "Vikash Sinha", "Neha Kapoor"];
+    const mData = managers.map(m => {
+      const mRows = rows.filter(r => r.manager === m);
+      return { name: m, dep: +mRows.reduce((s, r) => s + r.totalDep, 0).toFixed(0), loan: +mRows.reduce((s, r) => s + r.loan, 0).toFixed(0) };
+    });
+    const maxM = Math.max(50, ...mData.map(d => Math.max(d.dep, d.loan)));
+
+    document.getElementById("mgrChartArea").innerHTML = mData.map(d => {
+      const hDep = Math.max(4, Math.round((d.dep / maxM) * 130));
+      const hLoan = Math.max(4, Math.round((d.loan / maxM) * 130));
+      return `
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div><div class="bar-num">₹${d.dep}L</div><div class="bar-col" style="height:${hDep}px; background:#3B82F6;"></div></div>
+            <div><div class="bar-num">₹${d.loan}L</div><div class="bar-col" style="height:${hLoan}px; background:#10B981;"></div></div>
+          </div>
+          <div class="bar-label">${d.name.split(' ')[0]}</div>
+        </div>
+      `;
+    }).join("");
+
+    const qtrs = ["Q1", "Q2", "Q3", "Q4"];
+    const qData = qtrs.map(q => {
+      const qRows = rows.filter(r => r.qtr === q);
+      return { q, dep: +qRows.reduce((s, r) => s + r.totalDep, 0).toFixed(0), loan: +qRows.reduce((s, r) => s + r.loan, 0).toFixed(0), prof: +qRows.reduce((s, r) => s + r.profit, 0).toFixed(1) };
+    });
+    const maxQ = Math.max(50, ...qData.map(d => Math.max(d.dep, d.loan, d.prof * 3)));
+
+    document.getElementById("qtrChartArea").innerHTML = qData.map(d => {
+      const hDep = Math.max(4, Math.round((d.dep / maxQ) * 130));
+      const hLoan = Math.max(4, Math.round((d.loan / maxQ) * 130));
+      const hProf = Math.max(4, Math.round((Math.max(0, d.prof) / maxQ) * 130));
+      return `
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div><div class="bar-num">₹${d.dep}L</div><div class="bar-col" style="height:${hDep}px; background:#2563EB;"></div></div>
+            <div><div class="bar-num">₹${d.loan}L</div><div class="bar-col" style="height:${hLoan}px; background:#60A5FA;"></div></div>
+            <div><div class="bar-num" style="color:#FDE047;">₹${d.prof.toFixed(0)}L</div><div class="bar-col" style="height:${hProf}px; background:#FACC15; width:14px;"></div></div>
+          </div>
+          <div class="bar-label">${d.q}</div>
+        </div>
+      `;
+    }).join("");
+
+    const cats = [
+      { name: "Home Loan", color: "#3B82F6" }, { name: "Business Loan", color: "#ED232A" },
+      { name: "Car Loan", color: "#10B981" }, { name: "Personal Loan", color: "#F59E0B" }
+    ];
+    const catTotals = cats.map(c => ({ ...c, val: +rows.filter(r => r.loanType === c.name).reduce((s, r) => s + r.loan, 0).toFixed(0) }));
+    const totalLoanSum = catTotals.reduce((s, c) => s + c.val, 0) || 1;
+
+    let offset = 25;
+    let svgContent = `<circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#1E293B" stroke-width="6.5"></circle>`;
+    catTotals.forEach(c => {
+      const pct = (c.val / totalLoanSum) * 100;
+      if (pct > 0) {
+        svgContent += `<circle cx="21" cy="21" r="15.915" fill="transparent" stroke="${c.color}" stroke-width="6.5" stroke-dasharray="${pct} ${100 - pct}" stroke-dashoffset="${offset}"></circle>`;
+        offset = (offset - pct + 100) % 100;
+      }
+    });
+    svgContent += `<text x="21" y="21.5" text-anchor="middle" fill="#FFFFFF" font-size="5" font-weight="bold">₹${totalLoanSum}L</text>`;
+    document.getElementById("donutSvg").innerHTML = svgContent;
+
+    document.getElementById("donutLegend").innerHTML = catTotals.map(c => {
+      const pct = Math.round((c.val / totalLoanSum) * 100);
+      return `<div class="donut-row"><span><i class="dot" style="background:${c.color};"></i>${c.name}</span><b>₹${c.val}L (${pct}%)</b></div>`;
+    }).join("");
+  }
+
+  function updateTopHealthAndGraphs() {
+    const rows = getFilteredRows();
+    document.getElementById("recordCount").textContent = `Showing ${rows.length} of ${accounts.length} Accounts`;
+
+    const sumSavings = rows.reduce((s, r) => s + r.savings, 0);
+    const sumFD = rows.reduce((s, r) => s + r.fd, 0);
+    const sumDep = sumSavings + sumFD;
+    const sumLoan = rows.reduce((s, r) => s + r.loan, 0);
+    const sumProfit = rows.reduce((s, r) => s + r.profit, 0);
+
+    const safeLoans = rows.filter(r => r.status === "On Time").reduce((s, r) => s + r.loan, 0);
+    const safePct = sumLoan > 0 ? (safeLoans / sumLoan) * 100 : 100;
+
+    const depPct = Math.min(100, (sumDep / 750) * 100);
+    const profPct = Math.min(100, Math.max(0, (sumProfit / 40) * 100));
+    const healthScore = Math.round((depPct * 0.35) + (profPct * 0.35) + (safePct * 0.30));
+
+    document.getElementById("valHealth").textContent = healthScore + "%";
+    document.getElementById("barHealth").style.width = healthScore + "%";
+    document.getElementById("valDep").textContent = "₹" + sumDep.toFixed(1) + " L";
+    document.getElementById("barDep").style.width = depPct.toFixed(0) + "%";
+    document.getElementById("valProfit").textContent = "₹" + sumProfit.toFixed(2) + " L";
+    document.getElementById("barProfit").style.width = profPct.toFixed(0) + "%";
+    document.getElementById("valSafe").textContent = safePct.toFixed(1) + "%";
+    document.getElementById("barSafe").style.width = safePct.toFixed(0) + "%";
+
+    renderVisualGraphs(rows);
+    rebuildPivot();
+  }
+
+  function editCell(idx, field, val) {
+    if (["savings", "fd", "loan", "rate"].includes(field)) {
+      const num = parseFloat(val);
+      accounts[idx][field] = isNaN(num) ? 0 : num;
+    } else {
+      accounts[idx][field] = val;
+    }
+    saveState();
+    const r = computeRow(accounts[idx]);
+    const tr = document.getElementById("row-" + idx);
+    if (tr) {
+      tr.querySelector(".c-dep").textContent = "₹" + r.totalDep.toFixed(1) + " L";
+      tr.querySelector(".c-int").textContent = "₹" + r.interest.toFixed(2) + " L";
+      tr.querySelector(".c-prof").textContent = "₹" + r.profit.toFixed(2) + " L";
+    }
+    updateTopHealthAndGraphs();
+  }
+
+  function deleteCustomer(idx) {
+    accounts.splice(idx, 1);
+    saveState();
+    renderTable();
+  }
+
+  function renderTable() {
+    const rows = getFilteredRows();
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = rows.map((r, rIdx) => {
+      const i = r._i;
+      return `
+        <tr id="row-${i}">
+          <td><b>${r.id}</b></td>
+          <td><input id="grid-${rIdx}-0" type="text" class="grid-cell" value="${r.name}" onfocus="onCellFocus(this, ${rIdx}, 0)" oninput="editCell(${i},'name',this.value)" onkeydown="handleGridKeyDown(event, ${rIdx}, 0, ${i}, 'name', false)"></td>
+          <td>
+            <select id="grid-${rIdx}-1" class="grid-cell" onfocus="onCellFocus(this, ${rIdx}, 1)" onchange="editCell(${i},'manager',this.value)" onkeydown="handleGridKeyDown(event, ${rIdx}, 1, ${i}, 'manager', false)">
+              ${["Amit Verma","Priya Nair","Vikash Sinha","Neha Kapoor"].map(m => `<option ${r.manager===m?'selected':''}>${m}</option>`).join('')}
+            </select>
+          </td>
+          <td>
+            <select id="grid-${rIdx}-2" class="grid-cell" onfocus="onCellFocus(this, ${rIdx}, 2)" onchange="editCell(${i},'qtr',this.value)" onkeydown="handleGridKeyDown(event, ${rIdx}, 2, ${i}, 'qtr', false)">
+              ${["Q1","Q2","Q3","Q4"].map(q => `<option ${r.qtr===q?'selected':''}>${q}</option>`).join('')}
+            </select>
+          </td>
+          <td><input id="grid-${rIdx}-3" type="text" inputmode="decimal" class="grid-cell num-cell" value="${r.savings}" onfocus="onCellFocus(this, ${rIdx}, 3)" oninput="editCell(${i},'savings',this.value)" onkeydown="handleGridKeyDown(event, ${rIdx}, 3, ${i}, 'savings', true)"></td>
+          <td><input id="grid-${rIdx}-4" type="text" inputmode="decimal" class="grid-cell num-cell" value="${r.fd}" onfocus="onCellFocus(this, ${rIdx}, 4)" oninput="editCell(${i},'fd',this.value)" onkeydown="handleGridKeyDown(event, ${rIdx}, 4, ${i}, 'fd', true)"></td>
+          <td class="formula-cell c-dep">₹${r.totalDep.toFixed(1)} L</td>
+          <td>
+            <select id="grid-${rIdx}-5" class="grid-cell" onfocus="onCellFocus(this, ${rIdx}, 5)" onchange="editCell(${i},'loanType',this.value)" onkeydown="handleGridKeyDown(event, ${rIdx}, 5, ${i}, 'loanType', false)">
+              ${["Home Loan","Business Loan","Car Loan","Personal Loan"].map(t => `<option ${r.loanType===t?'selected':''}>${t}</option>`).join('')}
+            </select>
+          </td>
+          <td><input id="grid-${rIdx}-6" type="text" inputmode="decimal" class="grid-cell num-cell" value="${r.loan}" onfocus="onCellFocus(this, ${rIdx}, 6)" oninput="editCell(${i},'loan',this.value)" onkeydown="handleGridKeyDown(event, ${rIdx}, 6, ${i}, 'loan', true)"></td>
+          <td><input id="grid-${rIdx}-7" type="text" inputmode="decimal" class="grid-cell num-cell" value="${r.rate}" onfocus="onCellFocus(this, ${rIdx}, 7)" oninput="editCell(${i},'rate',this.value)" onkeydown="handleGridKeyDown(event, ${rIdx}, 7, ${i}, 'rate', true)"></td>
+          <td class="formula-cell c-int">₹${r.interest.toFixed(2)} L</td>
+          <td class="formula-cell c-prof">₹${r.profit.toFixed(2)} L</td>
+          <td>
+            <select id="grid-${rIdx}-8" class="grid-cell" onfocus="onCellFocus(this, ${rIdx}, 8)" onchange="editCell(${i},'status',this.value); renderTable();" onkeydown="handleGridKeyDown(event, ${rIdx}, 8, ${i}, 'status', false)">
+              ${["On Time","Late","Defaulted"].map(s => `<option ${r.status===s?'selected':''}>${s}</option>`).join('')}
+            </select>
+          </td>
+          <td><button class="btn btn-delete" onclick="deleteCustomer(${i})">Delete</button></td>
+        </tr>
+      `;
+    }).join("");
+
+    updateTopHealthAndGraphs();
+  }
+
+  function setSlicer(key, val, btn) {
+    active[key] = val;
+    btn.parentElement.querySelectorAll(".slicer-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderTable();
+  }
+
+  function runSearch() { active.search = document.getElementById("searchBox").value.trim(); renderTable(); }
+  function runFilter() { active.manager = document.getElementById("mgrSelect").value; renderTable(); }
+
+  function resetAll() {
+    accounts = JSON.parse(JSON.stringify(defaultData));
+    saveState();
+    active = { qtr: "All", status: "All", search: "", manager: "All", loanType: "All" };
+    document.getElementById("searchBox").value = "";
+    document.getElementById("mgrSelect").value = "All";
+    document.querySelectorAll(".slicer-box").forEach(box => {
+      box.querySelectorAll(".slicer-btn").forEach((b, idx) => b.classList.toggle("active", idx === 0));
+    });
+    renderTable();
+  }
+
+  function addRandomCustomer() {
+    const nextId = 100 + accounts.length + 1;
+    accounts.unshift({
+      id: "HDFC-" + nextId,
+      name: randomNames[Math.floor(Math.random() * randomNames.length)],
+      manager: managersList[Math.floor(Math.random() * managersList.length)],
+      qtr: quartersList[Math.floor(Math.random() * quartersList.length)],
+      savings: Math.floor(Math.random() * 50) + 10,
+      fd: Math.floor(Math.random() * 80) + 20,
+      loanType: loanTypesList[Math.floor(Math.random() * loanTypesList.length)],
+      loan: Math.floor(Math.random() * 100) + 25,
+      rate: +(Math.random() * 5 + 8.5).toFixed(1),
+      status: statusList[Math.floor(Math.random() * statusList.length)]
+    });
+    saveState();
+    renderTable();
+  }
+
+  renderTable();
+</script>
+
+
+</div></div></div><span id="output-footer"></span></div></body></html>
